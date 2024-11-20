@@ -8,7 +8,7 @@ public class BuildScript
 {
     public static void BuildWindows()
     {
-        string path = "Builds/Windows";
+        string path = Path.Combine("Builds","Windows");
         CreateDirectory(path);
 
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
@@ -25,7 +25,7 @@ public class BuildScript
 
         public static void BuildWebGL()
     {
-        string path = "Builds/WebGL";
+        string path = Path.Combine("Builds","WebGL");
         CreateDirectory(path);
 
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
@@ -42,7 +42,7 @@ public class BuildScript
 
     public static void CreateDirectory(string path)
     {
-        if (Directory.Exists(path))
+        if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
         }
