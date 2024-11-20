@@ -47,4 +47,4 @@ pipeline {
             archiveArtifacts artifacts: 'Builds/TestResults/*.xml', allowEmptyArchive: true
         }
     }
-}
+
