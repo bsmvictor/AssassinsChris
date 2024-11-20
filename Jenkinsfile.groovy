@@ -45,12 +45,13 @@ pipeline {
             }
         }
     }
-}
-
+    
     post {
         always {
             archiveArtifacts artifacts: 'Builds/**.zip', allowEmptyArchive: true
             archiveArtifacts artifacts: 'Builds/TestResults/*.xml', allowEmptyArchive: true
         }
     }
+}
+
 
