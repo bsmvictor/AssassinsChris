@@ -21,6 +21,7 @@ pipeline {
         }
 
          stage('Build Windows') {
+            when({expression {Windows_build == 'true'}})
              steps {
                  echo "Build Windows executada em: ${new Date()}"
                  bat """
@@ -30,6 +31,7 @@ pipeline {
         }
 
         stage('Build WebGL') {
+            when({expression {WebGL_build == 'false'}})
             steps {
                 echo "Build WebGL executada em: ${new Date()}"
                 bat """
