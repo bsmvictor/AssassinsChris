@@ -22,7 +22,7 @@ pipeline {
 
         stage('Build Windows') {
             steps {
-                echo "Build executada em: ${new Date()}"
+                echo "Build Windows executada em: ${new Date()}"
                 bat """
                 "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWindows -logFile -
                 """
@@ -31,16 +31,15 @@ pipeline {
 
         stage('Build WebGL') {
             steps {
-                script {
-                    withEnv(["UNITY_PATH=${UNITY_INSTALLATION}"]) {
-                        bat '''
-                        "%UNITY_PATH%/Unity.exe" -quit -batchmode -projectPath %PROJECT_PATH% -executeMethod BuildScript.BuildWebGL -logFile -
-                        '''
-                    }
-                }
+                echo "Build WebGL executada em: ${new Date()}"
+                bat """
+                "${env.UNITY_PATH}" -quit -batchmode -projectPath %PROJECT_PATH% -executeMethod BuildScript.BuildWebGL -logFile -
+                """
+
             }
         }
     }
+}
 
     post {
         always {
