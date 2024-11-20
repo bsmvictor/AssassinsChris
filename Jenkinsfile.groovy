@@ -2,8 +2,8 @@ pipeline {
     agent { label 'windows-node' }
 
     environment {
-        UNITY_PATH = '.\\Unity\\Hub\\Editor\\6000.0.24f1\\Editor\\Unity.exe'
-        PROJECT_PATH = '.\\jenkins\\workspace\\AssassinsChris'
+        UNITY_PATH = 'C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.24f1\\Editor\\Unity.exe'
+        PROJECT_PATH = 'C:\\jenkins\\workspace\\AssassinsChris'
         //EMAIL_RECIPIENTS = credentials('email-recipients')
     }
 
@@ -32,8 +32,8 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'AssassinsChrisGame//Builds/**.zip', allowEmptyArchive: true
-            archiveArtifacts artifacts: 'AssassinsChrisGame//Builds/TestResults/*.xml', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'AssassinsChris//Builds/**.zip', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'AssassinsChris//Builds/TestResults/*.xml', allowEmptyArchive: true
         }
         
     }
