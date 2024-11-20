@@ -1,5 +1,5 @@
 pipeline {
-    agent { label '' }
+    agent { label 'windows-node' }
 
     environment {
         UNITY_PATH = 'C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.24f1\\Editor\\Unity.exe'
