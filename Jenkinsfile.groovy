@@ -7,6 +7,11 @@ pipeline {
     //EMAIL_RECIPIENTS = credentials('email-recipients')
     }
 
+    parameters {
+        booleanParam(name: 'Windows_build', defaultValue: true, description: 'Executar Build para Windows')
+        booleanParam(name: 'WebGL_build', defaultValue: false, description: 'Executar Build para WebGL')
+    }
+
     triggers {
         cron('0 8-16 * * 1-5')
     }
@@ -21,7 +26,7 @@ pipeline {
         }
 
          stage('Build Windows') {
-            when({expression {Windows_build == 'true'}})
+            when({expression {params.Windows_build}})
              steps {
                  echo "Build Windows executada em: ${new Date()}"
                  bat """
@@ -31,7 +36,7 @@ pipeline {
         }
 
         stage('Build WebGL') {
-            when({expression {WebGL_build == 'false'}})
+            when({expression {params.WebGL_build}})
             steps {
                 echo "Build WebGL executada em: ${new Date()}"
                 bat """
