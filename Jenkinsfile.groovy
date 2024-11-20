@@ -35,19 +35,6 @@ pipeline {
             archiveArtifacts artifacts: 'AssassinsChrisGame//Builds/**.zip', allowEmptyArchive: true
             archiveArtifacts artifacts: 'AssassinsChrisGame//Builds/TestResults/*.xml', allowEmptyArchive: true
         }
-        success {
-            emailext(
-                subject: "Build Success - ${env.PROJECT_PATH}",
-                body: 'The build completed successfully.',
-                to: "${EMAIL_RECIPIENTS}"
-            )
-        }
-        failure {
-            emailext(
-                subject: "Build Failed - ${env.PROJECT_PATH}",
-                body: 'The build has failed.',
-                to: "${EMAIL_RECIPIENTS}"
-            )
-        }
+        
     }
 }
