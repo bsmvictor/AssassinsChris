@@ -2,8 +2,8 @@ pipeline {
     agent { label 'windows-node' }
 
     environment {
-        UNITY_PATH = 'C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.24f1\\Editor\\Unity.exe'
-        PROJECT_PATH = 'C:\\jenkins\\workspace\\AssassinsChris'
+        UNITY_PATH = '.\\Unity\\Hub\\Editor\\6000.0.24f1\\Editor\\Unity.exe'
+        PROJECT_PATH = '.\\jenkins\\workspace\\AssassinsChris'
         //EMAIL_RECIPIENTS = credentials('email-recipients')
     }
 
