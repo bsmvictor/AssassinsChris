@@ -4,7 +4,7 @@ pipeline {
     environment {
         UNITY_PATH = 'C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.24f1\\Editor\\Unity.exe'
         PROJECT_PATH = 'C:\\Jenkins\\workspace\\Unity\\AssassinsChrisGame'
-        EMAIL_RECIPIENTS = credentials('email-recipients')
+        //EMAIL_RECIPIENTS = credentials('email-recipients')
     }
 
     triggers {
