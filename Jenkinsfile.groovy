@@ -20,14 +20,14 @@ pipeline {
             }
         }
 
-        stage('Build Windows') {
-            steps {
-                echo "Build Windows executada em: ${new Date()}"
-                bat """
-                "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWindows -logFile -
-                """
-            }
-        }
+        // stage('Build Windows') {
+        //     steps {
+        //         echo "Build Windows executada em: ${new Date()}"
+        //         bat """
+        //         "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWindows -logFile -
+        //         """
+        //     }
+        // }
 
         stage('Build WebGL') {
             steps {
@@ -35,7 +35,6 @@ pipeline {
                 bat """
                 "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWebGL -logFile -
                 """
-
             }
         }
     }
