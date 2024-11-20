@@ -4,7 +4,7 @@ pipeline {
     environment {
         UNITY_PATH = 'C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.24f1\\Editor\\Unity.exe'
         PROJECT_PATH = 'C:\\jenkins\\workspace\\AssassinsChris'
-        //EMAIL_RECIPIENTS = credentials('email-recipients')
+    //EMAIL_RECIPIENTS = credentials('email-recipients')
     }
 
     triggers {
@@ -28,6 +28,18 @@ pipeline {
                 """
             }
         }
+
+        stage('Build WebGL') {
+            steps {
+                script {
+                    withEnv(["UNITY_PATH=${UNITY_INSTALLATION}"]) {
+                        bat '''
+                        "%UNITY_PATH%/Unity.exe" -quit -batchmode -projectPath %PROJECT_PATH% -executeMethod BuildScript.BuildWebGL -logFile -
+                        '''
+                    }
+                }
+            }
+        }
     }
 
     post {
@@ -35,6 +47,5 @@ pipeline {
             archiveArtifacts artifacts: 'Builds/**.zip', allowEmptyArchive: true
             archiveArtifacts artifacts: 'Builds/TestResults/*.xml', allowEmptyArchive: true
         }
-        
     }
 }

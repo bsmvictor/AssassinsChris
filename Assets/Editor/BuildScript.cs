@@ -23,6 +23,23 @@ public class BuildScript
         ZipBuild(path);
     }
 
+        public static void BuildWebGL()
+    {
+        string path = "Builds/WebGL";
+        CreateDirectory(path);
+
+        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
+        {
+            scenes = GetEnabledScenes(),
+            locationPathName = path,
+            target = BuildTarget.WebGL,
+            options = BuildOptions.None
+        };
+
+        BuildPipeline.BuildPlayer(buildPlayerOptions);
+        ZipBuild(path);
+    }
+
     public static void CreateDirectory(string path)
     {
         if (Directory.Exists(path))
