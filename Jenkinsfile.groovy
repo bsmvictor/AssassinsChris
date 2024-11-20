@@ -32,8 +32,8 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'AssassinsChris//Builds/**.zip', allowEmptyArchive: true
-            archiveArtifacts artifacts: 'AssassinsChris//Builds/TestResults/*.xml', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'AssassinsChris/Builds/**.zip', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'AssassinsChris/Builds/TestResults/*.xml', allowEmptyArchive: true
         }
         
     }
