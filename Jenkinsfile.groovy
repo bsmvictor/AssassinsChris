@@ -9,7 +9,7 @@ pipeline {
 
     parameters {
         booleanParam(name: 'Windows_build', defaultValue: true, description: 'Executar Build para Windows')
-        booleanParam(name: 'WebGL_build', defaultValue: false, description: 'Executar Build para WebGL')
+        booleanParam(name: 'WebGL_build', defaultValue: true, description: 'Executar Build para WebGL')
     }
 
     triggers {
