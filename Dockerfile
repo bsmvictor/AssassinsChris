@@ -1,5 +1,6 @@
 # Usar imagem base oficial do Jenkins LTS
 FROM jenkins/jenkins:lts
+COPY jenkins_home /var/jenkins_home
 
 # Definir o ambiente como não interativo
 ENV DEBIAN_FRONTEND=noninteractive
