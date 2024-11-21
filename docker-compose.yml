@@ -1,8 +1,16 @@
+version: '3.8'
+
 services:
   jenkins:
-    image: jenkins/jenkins:lts
-    ports: "8080:8080"
-  volumes:
-    jenkins_data:/var/jenkins_home
+    image: jenkins/jenkins:lts  
+    container_name: thirsty_pascal
+    ports:
+      - "8080:8080"  
+      - "50000:50000"  
+    volumes:
+      - jenkins_data:/var/jenkins_home  
+      - /var/run/docker.sock:/var/run/docker.sock  
+
 volumes:
-  jenkins_data: 
+  jenkins_data:
+    driver: local  
