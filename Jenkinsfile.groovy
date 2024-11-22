@@ -12,6 +12,16 @@ pipeline {
         UNITY_LOCAL = '/root/.local'
     }
     stages {
+            stage('Clone Repository') {
+            steps {
+                script {
+                    checkout([$class: 'GitSCM',
+                        branches: [[name: 'main']],
+                        userRemoteConfigs: [[url: 'https://github.com/bsmvictor/AssassinsChris']]])
+                }
+            }
+                }
+
         stage('Activate License') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'unity-credentials', usernameVariable: 'UNITY_USERNAME', passwordVariable: 'UNITY_PASSWORD')]) {
