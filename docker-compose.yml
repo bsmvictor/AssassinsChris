@@ -1,7 +1,6 @@
 services:
   jenkins:
-    context: .
-    dockerfile: Dockerfile
+    build: .
     container_name: jenkins-pipeline
     ports:
       - "8090:8080"
