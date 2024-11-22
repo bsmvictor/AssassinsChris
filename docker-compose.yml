@@ -6,7 +6,7 @@ services:
     container_name: jenkins-pipeline
     ports:
       - "8081:8080"
-      - "50000:50000"
+      - "50001:50000"
     volumes:
       # Volume para o diretório do Jenkins
       - /c/jenkins_home:/var/jenkins_home
