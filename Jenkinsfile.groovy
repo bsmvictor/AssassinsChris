@@ -1,16 +1,8 @@
 pipeline {
     agent {
-        docker.image('unityci/editor:6000.0.28f1-webgl-3').inside('-v /root/.cache/unity3d:/root/.cache/unity3d -v /root/.local:/root/.local') {
-            sh '''
-            unity-editor \
-            -batchmode \
-            -nographics \
-            -quit \
-            -projectPath /workspace \
-            -username "$UNITY_USERNAME" \
-            -password "$UNITY_PASSWORD" \
-            -serial "$UNITY_LICENSE"
-            '''
+        docker {
+            image 'unityci/editor:6000.0.28f1-webgl-3'
+            args '-v /c/jenkins_home/unity_cache:/root/.cache/unity3d -v /c/jenkins_home/unity_local:/root/.local'
         }
     }
     environment {
