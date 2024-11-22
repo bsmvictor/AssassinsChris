@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'unityci/editor:6000.0.28f1-webgl-3'
-            args '-v /c/Jenkins/unity_cache:/root/.cache/unity3d -v /c/Jenkins/unity_local:/root/.local'
+            args '-v /c/jenkins_home/unity_cache:/root/.cache/unity3d -v /c/jenkins_home/unity_local:/root/.local'
         }
     }
     environment {
