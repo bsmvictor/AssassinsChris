@@ -1,6 +1,7 @@
 services:
   jenkins:
-    image: jenkins/jenkins:latest
+    context: .
+    dockerfile: Dockerfile
     container_name: jenkins-pipeline
     ports:
       - "8090:8080"
