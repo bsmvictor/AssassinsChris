@@ -8,6 +8,8 @@ pipeline {
     environment {
         UNITY_LICENSE = credentials('unity-license-key')
         PROJECT_PATH = 'C:\\jenkins_home\\workspace\\Unity\\AssassinsChrisGame'
+        UNITY_CACHE = '/root/.cache/unity3d'
+        UNITY_LOCAL = '/root/.local'
     }
     stages {
         stage('Activate License') {
