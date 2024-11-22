@@ -25,12 +25,6 @@ RUN apt-get update && apt-get install -y \
 # Verificar se o Docker CLI foi instalado corretamente
 RUN docker --version
 
-# Configurar permissões para o usuário Jenkins acessar o Docker
-RUN chmod 666 /var/run/docker.sock
-
-# Retornar ao usuário Jenkins
-USER jenkins
-
 # Copiar o arquivo plugins.txt para o container
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 
