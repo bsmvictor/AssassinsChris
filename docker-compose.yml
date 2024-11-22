@@ -1,8 +1,6 @@
-version: '3.9'
-
 services:
   jenkins:
-    image: jenkins-docker:latest
+    image: jenkins/jenkins:latest
     container_name: jenkins-pipeline
     ports:
       - "8090:8080"
