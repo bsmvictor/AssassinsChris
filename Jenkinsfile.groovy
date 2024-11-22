@@ -2,15 +2,13 @@ pipeline {
     agent {
         docker {
             image 'unityci/editor:6000.0.28f1-webgl-3'
-            args '-v /c/Jenkins/workspace/Unity/AssassinsChrisGame:/workspace'
+            args '-v /c/Jenkins/unity_cache:/root/.cache/unity3d -v /c/Jenkins/unity_local:/root/.local'
         }
     }
-
     environment {
-        UNITY_LICENSE = credentials('unity-license-key') // Adicione sua licença Unity às credenciais do Jenkins
-        PROJECT_PATH = 'C:\\jenkins_home\\workspace\\Unity\\AssassinsChrisGame' // Caminho do projeto Unity dentro do container
+        UNITY_LICENSE = credentials('unity-license-key')
+        PROJECT_PATH = 'C:\\jenkins_home\\workspace\\Unity\\AssassinsChrisGame'
     }
-
     stages {
         stage('Activate License') {
             steps {
@@ -27,38 +25,31 @@ pipeline {
                 }
             }
         }
-
         stage('Run Tests') {
             steps {
-                echo 'Executando testes...'
                 sh """
                 unity-editor \
                 -quit -batchmode \
                 -projectPath ${PROJECT_PATH} \
-                -executeMethod TestReportGenerator.RunTestsAndGenerateReport \
+                -executeMethod TestRunner.RunTests \
                 -logFile /dev/stdout
                 """
             }
         }
-
         stage('Build WebGL') {
             steps {
-                echo 'Iniciando build para WebGL...'
                 sh """
                 unity-editor \
                 -quit -batchmode \
                 -projectPath ${PROJECT_PATH} \
                 -executeMethod BuildScript.BuildWebGL \
-                -buildTarget WebGL \
                 -logFile /dev/stdout
                 """
             }
         }
     }
-
     post {
         success {
-            echo 'Build concluída com sucesso!'
             archiveArtifacts artifacts: 'Builds/**', allowEmptyArchive: true
         }
         failure {
