@@ -1,5 +1,5 @@
 # Usar imagem base oficial do Jenkins LTS
-FROM jenkins-docker:latest
+FROM jenkins/jenkins:latest
 
 # Definir o ambiente como não interativo
 ENV DEBIAN_FRONTEND=noninteractive
@@ -22,26 +22,29 @@ RUN apt-get update && apt-get install -y \
     && usermod -aG docker jenkins \
     && rm -rf /var/lib/apt/lists/*
 
-# Certifique-se de que o Docker CLI esteja funcional
+# Verificar se o Docker CLI foi instalado corretamente
 RUN docker --version
 
-# Configurar o Jenkins para o usuário padrão
+# Configurar permissões para o usuário Jenkins acessar o Docker
+RUN chmod 666 /var/run/docker.sock
+
+# Retornar ao usuário Jenkins
 USER jenkins
 
-# Copiar o arquivo plugins.txt para dentro do container
+# Copiar o arquivo plugins.txt para o container
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 
-# Usar o comando oficial para instalar os plugins listados no plugins.txt
+# Instalar os plugins listados em plugins.txt
 RUN jenkins-plugin-cli --plugins --verbose < /usr/share/jenkins/ref/plugins.txt
 
-# Configurar o volume de dados (para persistência)
+# Configurar o volume para persistência
 VOLUME /var/jenkins_home
 
 # Expor a porta padrão do Jenkins
 EXPOSE 8080
 
-# Expor a porta de agente JNLP (para agentes conectarem ao Jenkins master)
+# Expor a porta para os agentes do Jenkins
 EXPOSE 50000
 
-# Inicializar o Jenkins
+# Comando para inicializar o Jenkins
 CMD ["java", "-jar", "/usr/share/jenkins/jenkins.war"]
