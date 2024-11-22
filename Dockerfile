@@ -1,5 +1,5 @@
 # Usar imagem base oficial do Jenkins LTS
-FROM jenkins/jenkins:lts
+FROM jenkins-docker:latest
 
 # Definir o ambiente como não interativo
 ENV DEBIAN_FRONTEND=noninteractive
