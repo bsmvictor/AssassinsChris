@@ -14,15 +14,17 @@ pipeline {
     stages {
         stage('Activate License') {
             steps {
-                echo 'Ativando licença do Unity...'
-                sh """
-                unity-editor \
-                -batchmode \
-                -logFile /dev/stdout \
-                -username <SEU_USUÁRIO_UNITY> \
-                -password <SUA_SENHA_UNITY> \
-                -serial ${UNITY_LICENSE}
-                """
+                withCredentials([usernamePassword(credentialsId: 'unity-credentials', usernameVariable: 'UNITY_USERNAME', passwordVariable: 'UNITY_PASSWORD')]) {
+                    echo 'Ativando licença do Unity...'
+                    sh """
+                    unity-editor \
+                    -batchmode \
+                    -logFile /dev/stdout \
+                    -username ${UNITY_USERNAME} \
+                    -password ${UNITY_PASSWORD} \
+                    -serial ${UNITY_LICENSE}
+                    """
+                }
             }
         }
 
