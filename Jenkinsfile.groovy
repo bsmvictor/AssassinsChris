@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
         UNITY_LICENSE = credentials('unity-license-key')
-        PROJECT_PATH = 'C:\\jenkins_home\\workspace\\Unity\\AssassinsChrisGame'
+        PROJECT_PATH = '/var/jenkins_home/workspace/unity-pipeline/UnityAssassinsChrisGame'
         UNITY_CACHE = '/root/.cache/unity3d'
         UNITY_LOCAL = '/root/.local'
     }
