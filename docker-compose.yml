@@ -10,7 +10,19 @@ services:
     volumes:
       - jenkins_data:/var/jenkins_home  
       - /var/run/docker.sock:/var/run/docker.sock  
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: alves
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
 
 volumes:
   jenkins_data:
     driver: local  
+  mysql_data:
+    driver: local
