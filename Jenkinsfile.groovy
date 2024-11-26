@@ -22,12 +22,13 @@ pipeline {
                 "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWindows -logFile -
                 """
             }
+        }
 
+        stage('Verify build') {
             steps {
                 echo "Verificando conteúdo do diretório Builds:"
                 bat 'dir "${env.PROJECT_PATH}\\Builds" /s'
             }
-        }
 
     }
 
