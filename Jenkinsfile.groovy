@@ -7,15 +7,6 @@ pipeline {
         RECIPIENT_EMAIL = credentials('EMAIL_VAR')
     }
 
-    parameters {
-        booleanParam(name: 'Windows_build', defaultValue: true, description: 'Executar Build para Windows')
-        booleanParam(name: 'WebGL_build', defaultValue: true, description: 'Executar Build para WebGL')
-    }
-
-    triggers {
-        cron('0 8-16 * * 1-5')
-    }
-
     stages {
         stage('Run Tests') {
             steps {
@@ -33,16 +24,6 @@ pipeline {
                  "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWindows -logFile -
                  """
              }
-        }
-
-        stage('Build WebGL') {
-            when({expression {params.WebGL_build}})
-            steps {
-                echo "Build WebGL executada em: ${new Date()}"
-                bat """
-                "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWebGL -logFile -
-                """
-            }
         }
 
         stage('Exec Script'){
