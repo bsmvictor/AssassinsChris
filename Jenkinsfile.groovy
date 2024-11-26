@@ -23,14 +23,6 @@ pipeline {
                 """
             }
         }
-
-        stage('Verify build') {
-            steps {
-                echo "Verificando conteúdo do diretório Builds:"
-                bat 'dir "${env.PROJECT_PATH}\\Builds" /s'
-            }
-
-        }
     }
 
     post {
