@@ -1,6 +1,5 @@
 # Usar imagem base oficial do Jenkins LTS
 FROM jenkins/jenkins:lts
-COPY jenkins_home /var/jenkins_home
 
 # Definir o ambiente como não interativo
 ENV DEBIAN_FRONTEND=noninteractive
@@ -14,6 +13,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     && rm -rf /var/lib/apt/lists/*
+
+# Instalar mailutils com permissões root
+RUN apt-get update && apt-get install -y mailutils && rm -rf /var/lib/apt/lists/*
 
 # Configurar o Jenkins para o usuário padrão
 USER jenkins

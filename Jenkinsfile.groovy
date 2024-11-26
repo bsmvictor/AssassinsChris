@@ -4,7 +4,7 @@ pipeline {
     environment {
         UNITY_PATH = 'C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.24f1\\Editor\\Unity.exe'
         PROJECT_PATH = 'C:\\jenkins\\workspace\\AssassinsChris'
-    //EMAIL_RECIPIENTS = credentials('email-recipients')
+        RECIPIENT_EMAIL = credentials('EMAIL_VAR')
     }
 
     parameters {
@@ -42,6 +42,12 @@ pipeline {
                 bat """
                 "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWebGL -logFile -
                 """
+            }
+        }
+
+        stage('Exec Script'){
+            steps {
+                sh 'chmod +x send_email.sh && ./send_email.sh'
             }
         }
     }
