@@ -17,7 +17,6 @@ pipeline {
         }
 
          stage('Build Windows') {
-            when({expression {params.Windows_build}})
              steps {
                  echo "Build Windows executada em: ${new Date()}"
                  bat """
