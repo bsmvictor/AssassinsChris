@@ -24,20 +24,7 @@ pipeline {
                  """
              }
         }
-
-        stage('Send Email') {
-            steps {
-                script {
-                    def subject = "Pipeline Executado!"
-                    def body = "A execução do pipeline foi concluída com sucesso."
-                    def recipient = env.RECIPIENT_EMAIL
-
-                    bat """
-                    powershell -Command \"Send-MailMessage -From 'jenkins@domain.com' -To '${recipient}' -Subject '${subject}' -Body '${body}' -SmtpServer 'smtp.yourserver.com' -Port 587 -Credential (New-Object System.Management.Automation.PSCredential('your_username', (ConvertTo-SecureString 'your_password' -AsPlainText -Force)))\"
-                    """
-                }
-            }
-        }
+        
     }
 
     post {
