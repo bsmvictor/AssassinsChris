@@ -28,7 +28,8 @@ pipeline {
 
         stage('Exec Script'){
             steps {
-                sh 'chmod +x send_email.sh && ./send_email.sh'
+                bat 'C:\\Program Files\\Git\\bin\\bash.exe -c "chmod +x send_email.sh && ./send_email.sh"'
+            
             }
         }
     }
