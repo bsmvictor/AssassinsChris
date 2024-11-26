@@ -51,7 +51,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             archiveArtifacts artifacts: 'Builds/**.zip', allowEmptyArchive: true

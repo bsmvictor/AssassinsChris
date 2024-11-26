@@ -8,7 +8,7 @@ public class BuildScript
 {
     public static void BuildWindows()
     {
-        string path = Path.Combine("Builds","Windows");
+        string path = Path.Combine(Directory.GetCurrentDirectory(),"Builds","Windows");
         CreateDirectory(path);
 
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
@@ -23,22 +23,6 @@ public class BuildScript
         ZipBuild(path);
     }
 
-        public static void BuildWebGL()
-    {
-        string path = Path.Combine("Builds","WebGL");
-        CreateDirectory(path);
-
-        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
-        {
-            scenes = GetEnabledScenes(),
-            locationPathName = path,
-            target = BuildTarget.WebGL,
-            options = BuildOptions.None
-        };
-
-        BuildPipeline.BuildPlayer(buildPlayerOptions);
-        ZipBuild(path);
-    }
 
     public static void CreateDirectory(string path)
     {
