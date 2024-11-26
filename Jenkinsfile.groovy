@@ -9,13 +9,7 @@ pipeline {
 
 
     stages {
-        stage('bla') {
-            steps {
-                bat 'mkdir C:\\jenkins\\workspace\\AssassinsChris\\Builds\\TestDir'
-                bat 'echo Test > C:\\jenkins\\workspace\\AssassinsChris\\Builds\\TestDir\\testfile.txt'
-            }
-
-        }
+        
         stage('Run Tests') {
             steps {
                 bat """
