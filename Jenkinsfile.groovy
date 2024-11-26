@@ -27,14 +27,14 @@ pipeline {
             }
         }
 
-        stage('Build WebGL') {
+       /* stage('Build WebGL') {
             steps {
                 echo "Build WebGL executada em: ${new Date()}"
                 bat """
                 "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWebGL -logFile -
                 """
             }
-        }
+        }*/
     }
     
     post {
