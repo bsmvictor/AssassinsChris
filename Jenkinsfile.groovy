@@ -12,11 +12,14 @@ pipeline {
         booleanParam(name: 'WebGL_build', defaultValue: true, description: 'Executar Build para WebGL')
     }
 
-    triggers {
-        cron('0 8-16 * * 1-5')
-    }
-
     stages {
+        stage('bla') {
+            steps {
+                bat 'mkdir C:\\jenkins\\workspace\\AssassinsChris\\Builds\\TestDir'
+                bat 'echo Test > C:\\jenkins\\workspace\\AssassinsChris\\Builds\\TestDir\\testfile.txt'
+            }
+
+        }
         stage('Run Tests') {
             steps {
                 bat """
@@ -48,8 +51,8 @@ pipeline {
     
     post {
         always {
-            archiveArtifacts artifacts: 'Builds/**.zip', allowEmptyArchive: true
-            archiveArtifacts artifacts: 'Builds/TestResults/*.xml', allowEmptyArchive: true
+            archiveArtifacts artifacts: '**/*.zip', allowEmptyArchive: true
+            archiveArtifacts artifacts: '**/TestResults/*.xml', allowEmptyArchive: true
         }
     }
 }
