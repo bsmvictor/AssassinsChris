@@ -3,17 +3,7 @@ pipeline {
 
     environment {
         UNITY_PATH = 'C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.24f1\\Editor\\Unity.exe'
-        PROJECT_PATH = 'C:\\jenkins\\workspace\\AssassinsChris'
-    //EMAIL_RECIPIENTS = credentials('email-recipients')
-    }
-
-    parameters {
-        booleanParam(name: 'Windows_build', defaultValue: true, description: 'Executar Build para Windows')
-        booleanParam(name: 'WebGL_build', defaultValue: true, description: 'Executar Build para WebGL')
-    }
-
-    triggers {
-        cron('0 8-16 * * 1-5')
+        PROJECT_PATH = 'C:\\Jenkins\\workspace\\AssassinsChris'
     }
 
     stages {
@@ -25,22 +15,20 @@ pipeline {
             }
         }
 
-         stage('Build Windows') {
-            when({expression {params.Windows_build}})
-             steps {
-                 echo "Build Windows executada em: ${new Date()}"
-                 bat """
-                 "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWindows -logFile -
-                 """
-             }
+        stage('Build Windows') {
+            steps {
+                echo "Build executada em: ${new Date()}"
+                bat """
+                "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWindows -logFile -
+                """
+            }
         }
-
     }
-    
+
     post {
         always {
             archiveArtifacts artifacts: 'AssassinsChris//Builds/**.zip', allowEmptyArchive: true
             archiveArtifacts artifacts: 'AssassinsChris//Builds/TestResults/*.xml', allowEmptyArchive: true
-       }
+        }
     }
 }
