@@ -30,7 +30,7 @@ pipeline {
                 bat 'dir "${env.PROJECT_PATH}\\Builds" /s'
             }
 
-    }
+        }
 
     post {
         always {
