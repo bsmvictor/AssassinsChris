@@ -2,6 +2,9 @@ version: '3.8'
 
 services:
   jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
     image: jenkins/jenkins:lts  
     container_name: thirsty_pascal
     ports:
@@ -10,6 +13,9 @@ services:
     volumes:
       - jenkins_data:/var/jenkins_home  
       - /var/run/docker.sock:/var/run/docker.sock  
+    environment:
+      - JAVA_OPTS= "-Djenkins.install.runSetupWizard=false"
+
   mysql:
     image: mysql:latest
     container_name: mysql-container
@@ -20,16 +26,18 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+
   adminer:
     image: adminer
     ports:
       - "8082:8080"
+
   nginx:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.nginx
     ports:
-      - "8083:80"
+      - "8083:8080"
 
 volumes:
   jenkins_data:

@@ -1,0 +1,7 @@
+FROM nginx:latest
+
+# Copie o diretório de arquivos estáticos para o contêiner
+COPY static /usr/share/nginx/html/capa
+
+# Copie o arquivo de configuração Nginx para o contêiner
+COPY nginx.conf /etc/nginx/conf.d/default.conf
