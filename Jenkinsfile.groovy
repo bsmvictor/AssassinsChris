@@ -4,22 +4,26 @@ pipeline {
     environment {
         UNITY_PATH = 'C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.24f1\\Editor\\Unity.exe'
         PROJECT_PATH = 'C:\\jenkins_home\\workspace\\unity-pipeline\\AssassinsChrisGame'
-    }  
+    }
 
     stages {
         stage('Checkout') {
             steps {
+                echo "Iniciando o checkout do repositório"
                 checkout([$class: 'GitSCM',
-                         branches: [[name: '*/main']],
-                            userRemoteConfigs: [[
-                                url: 'https://github.com/bsmvictor/AssassinsChris',
-                                credentialsId: 'github-token'
-                            ]]])
+                          branches: [[name: '*/main']],
+                          userRemoteConfigs: [[
+                              url: 'https://github.com/bsmvictor/AssassinsChris',
+                              credentialsId: 'github-token'
+                          ]]])
             }
         }
 
         stage('Run Tests') {
             steps {
+                echo "Executando testes com Unity"
+                echo "Unity Path: ${env.UNITY_PATH}"
+                echo "Project Path: ${env.PROJECT_PATH}"
                 bat """
                 "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod TestReportGenerator.RunTestsAndGenerateReport -logFile -
                 """
@@ -28,7 +32,7 @@ pipeline {
 
         stage('Build Windows') {
             steps {
-                echo "Build executada em: ${new Date()}"
+                echo "Iniciando build para Windows"
                 bat """
                 "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWindows -logFile -
                 """
@@ -38,8 +42,9 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'AssassinsChrisGame//Builds/**.zip', allowEmptyArchive: true
-            archiveArtifacts artifacts: 'AssassinsChrisGame//Builds/TestResults/*.xml', allowEmptyArchive: true
+            echo "Arquivando artefatos"
+            archiveArtifacts artifacts: '**/Builds/**.zip', allowEmptyArchive: true
+            archiveArtifacts artifacts: '**/Builds/TestResults/*.xml', allowEmptyArchive: true
         }
     }
 }
