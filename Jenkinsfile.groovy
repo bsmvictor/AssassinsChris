@@ -1,13 +1,23 @@
 pipeline {
-    agent { label 'windows-node' }
+    agent { label 'windows' }
 
     environment {
         UNITY_PATH = 'C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.24f1\\Editor\\Unity.exe'
-        PROJECT_PATH = 'C:\\jenkins\\workspace\\AssassinsChris'
-        RECIPIENT_EMAIL = credentials('EMAIL_VAR')
-    }
+        PROJECT_PATH = 'C:\\jenkins_home\\workspace\\unity-pipeline\\AssassinsChrisGame'
+    }  
 
     stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM',
+                         branches: [[name: '*/main']],
+                            userRemoteConfigs: [[
+                                url: 'https://github.com/bsmvictor/AssassinsChris',
+                                credentialsId: 'github-token'
+                            ]]])
+            }
+        }
+
         stage('Run Tests') {
             steps {
                 bat """
@@ -16,21 +26,20 @@ pipeline {
             }
         }
 
-         stage('Build Windows') {
-             steps {
-                 echo "Build Windows executada em: ${new Date()}"
-                 bat """
-                 "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWindows -logFile -
-                 """
-             }
+        stage('Build Windows') {
+            steps {
+                echo "Build executada em: ${new Date()}"
+                bat """
+                "${env.UNITY_PATH}" -quit -batchmode -projectPath "${env.PROJECT_PATH}" -executeMethod BuildScript.BuildWindows -logFile -
+                """
+            }
         }
-        
     }
 
     post {
         always {
-            archiveArtifacts artifacts: 'Builds/**.zip', allowEmptyArchive: true
-            archiveArtifacts artifacts: 'Builds/TestResults/*.xml', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'AssassinsChrisGame//Builds/**.zip', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'AssassinsChrisGame//Builds/TestResults/*.xml', allowEmptyArchive: true
         }
     }
 }
