@@ -37,7 +37,9 @@ services:
       context: .
       dockerfile: Dockerfile.nginx
     ports:
-      - "8083:8080"
+      - "8083:80"
+    volumes:
+      - ./static:/usr/share/nginx/html/static
 
 volumes:
   jenkins_data:
