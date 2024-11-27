@@ -1,4 +1,4 @@
 FROM nginx:latest
 
-COPY static/capajogo.png /usr/share/nginx/html/static/capajogo.png
+COPY static/CapaJogo.png /usr/share/nginx/html/static/CapaJogo.png
 COPY nginx.conf /etc/nginx/conf.d/default.conf
