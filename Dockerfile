@@ -1,5 +1,6 @@
 # Usar imagem base oficial do Jenkins LTS
 FROM jenkins/jenkins:lts
+FROM nginx:latest
 
 # Definir o ambiente como não interativo
 ENV DEBIAN_FRONTEND=noninteractive
@@ -22,6 +23,12 @@ USER jenkins
 
 # Copiar o arquivo plugins.txt para dentro do container
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+
+# Copie o arquivo de configuração Nginx para o contêiner
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copie o diretório de arquivos estáticos para o contêiner
+COPY static /usr/share/nginx/html/capa
 
 # Usar o comando oficial para instalar os plugins listados no plugins.txt
 RUN jenkins-plugin-cli --plugins --verbose < /usr/share/jenkins/ref/plugins.txt
