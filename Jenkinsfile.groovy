@@ -4,6 +4,7 @@ pipeline {
     environment {
         UNITY_PATH = 'C:\\Program Files\\Unity\\Hub\\Editor\\6000.0.24f1\\Editor\\Unity.exe'
         PROJECT_PATH = 'C:\\jenkins_home\\workspace\\unity-pipeline\\AssassinsChrisGame'
+        DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1311152479865405581/TlEfJv9XXJLcasfjX8PGmyANyMxFgb58OQuVIvf3eIkZA7Kx41UMC9C2dhffotpYEuNd'
     }
 
     stages {
@@ -48,16 +49,14 @@ pipeline {
 
             echo "Enviando notificação para o Discord"
             script {
-                def discordWebhookUrl = 'https://discord.com/api/webhooks/1311152479865405581/TlEfJv9XXJLcasfjX8PGmyANyMxFgb58OQuVIvf3eIkZA7Kx41UMC9C2dhffotpYEuNd'
+                def message = [
+                    content: "Pipeline finalizada! \nResultado: ${currentBuild.result} \nProjeto: Assassins Chris \nBuild número: ${env.BUILD_NUMBER}"
+                ]
 
-                def message = """{
-                    "content": "Pipeline finalizada! \\nResultado: ${currentBuild.result} \\nProjeto: Assassins Chris \\nBuild número: ${env.BUILD_NUMBER}"
-                }"""
-
-                writeFile file: 'discord_message.json', text: message
+                writeFile file: 'discord_message.json', text: groovy.json.JsonOutput.toJson(message)
 
                 bat """
-                    curl -H "Content-Type: application/json" -X POST -d @discord_message.json "${discordWebhookUrl}"
+                curl -H "Content-Type: application/json" -X POST -d @discord_message.json "${env.DISCORD_WEBHOOK_URL}"
                 """
             }
         }
