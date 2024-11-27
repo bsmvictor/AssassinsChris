@@ -45,6 +45,21 @@ pipeline {
             echo "Arquivando artefatos"
             archiveArtifacts artifacts: '**/Builds/**.zip', allowEmptyArchive: true
             archiveArtifacts artifacts: '**/Builds/TestResults/*.xml', allowEmptyArchive: true
+
+            echo "Enviando notificação para o Discord"
+            script {
+                def discordWebhookUrl = 'https://discord.com/api/webhooks/1311152479865405581/TlEfJv9XXJLcasfjX8PGmyANyMxFgb58OQuVIvf3eIkZA7Kx41UMC9C2dhffotpYEuNd'
+
+                def message = """{
+                    "content": "Pipeline finalizada! \\nResultado: ${currentBuild.result} \\nProjeto: Assassins Chris \\nBuild número: ${env.BUILD_NUMBER}"
+                }"""
+
+                writeFile file: 'discord_message.json', text: message
+
+                bat """
+                    curl -H "Content-Type: application/json" -X POST -d @discord_message.json "${discordWebhookUrl}"
+                """
+            }
         }
     }
 }
