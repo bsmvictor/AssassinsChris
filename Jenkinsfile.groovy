@@ -14,7 +14,7 @@ pipeline {
                           branches: [[name: '*/main']],
                           userRemoteConfigs: [[
                               url: 'https://github.com/bsmvictor/AssassinsChris',
-                              credentialsId: 'github-token'
+                              credentialsId: 'github-key'
                           ]]])
             }
         }
